@@ -11,7 +11,7 @@ module.exports = {
 
     for (const file of commandFiles) {
       const command = require(`./${file}`);
-      str += `<b>Name</b>: !${command.name}, <b>Description</b>: ${command.description} \n`;
+      str += `Name: !${command.name}, Description: ${command.description} \n`;
     }
 
     message.channel.send(str);
