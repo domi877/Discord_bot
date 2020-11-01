@@ -53,7 +53,7 @@ module.exports = {
       } else {
         serverQueue.songs.push(song);
         return message.channel.send(
-          `${song.title} has been added to the queue!`
+          `✅ **${song.title}** has been added to the queue by ${message.author}`
         );
       }
     } catch (error) {
