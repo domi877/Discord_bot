@@ -1,32 +1,52 @@
+const fs = require("fs");
 const Discord = require("discord.js");
-const config = require("./config.json");
-const Client = new Discord.Client();
+const Client = require("./client/Client");
+const { prefix, token } = require("./config.json");
 
-Client.on("message", (msg) => {
-  if (msg.content === "ping") {
-    msg.reply("pong");
+const client = new Client();
+client.commands = new Discord.Collection();
+
+const commandFiles = fs
+  .readdirSync("./commands")
+  .filter((file) => file.endsWith(".js"));
+
+for (const file of commandFiles) {
+  const command = require(`./commands/${file}`);
+  client.commands.set(command.name, command);
+}
+
+console.log(client.commands);
+
+client.once("ready", () => {
+  console.log("Ready!");
+});
+
+client.once("reconnecting", () => {
+  console.log("Reconnecting!");
+});
+
+client.once("disconnect", () => {
+  console.log("Disconnect!");
+});
+
+client.on("message", async (message) => {
+  const args = message.content.slice(prefix.length).split(/ +/);
+  const commandName = args.shift().toLowerCase();
+  const command = client.commands.get(commandName);
+
+  if (message.author.bot) return;
+  if (!message.content.startsWith(prefix)) return;
+
+  try {
+    if (commandName == "ban" || commandName == "userinfo") {
+      command.execute(message, client);
+    } else {
+      command.execute(message);
+    }
+  } catch (error) {
+    console.error(error);
+    message.reply("There was an error trying to execute that command!");
   }
 });
 
-/**
- * The ready event is vital, it means that only _after_ this will your bot start reacting to information
- * received from Discord
- */
-Client.on("ready", () => {
-  console.log("I am ready!");
-});
-
-// Create an event listener for new guild members
-Client.on("guildMemberAdd", (member) => {
-  // Send the message to a designated channel on a server:
-  const channel = member.guild.channels.cache.find(
-    (ch) => ch.name === "dorfschelle"
-  );
-  // Do nothing if the channel wasn't found on this server
-  if (!channel) return;
-  // Send the message, mentioning the member
-  channel.send(`Willkommen im schönen Flörsbachtal ${member}`);
-});
-
-// Log our bot in using the token from https://discord.com/developers/applications
-Client.login(config.BOT_TOKEN);
+client.login(token);
