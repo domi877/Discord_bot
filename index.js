@@ -30,4 +30,5 @@ Client.on('ready', () => {
  
  
   // Log our bot in using the token from https://discord.com/developers/applications
-  Client.login("NzYwNzc3ODYyODE0NjI5ODk4.X3Q_mQ.NemttrUVCXumG16XkZvqcJmCxtg");
+let TOKEN = "";
+  Client.login(TOKEN);
