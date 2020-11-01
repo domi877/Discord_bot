@@ -2,7 +2,7 @@ const { getUserFromMention } = require("../util/getUser");
 
 module.exports = {
   name: "userinfo",
-  description: "Get information about a user.",
+  description: "Get information about a user. (!userinfo USER)",
   execute(message, client) {
     const split = message.content.split(/ +/);
     const args = split.slice(1);
