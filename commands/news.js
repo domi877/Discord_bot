@@ -10,6 +10,7 @@ var c = new Crawler({
     } else {
       var $ = res.$;
       url = $("a:contains('Pressemitteilung')").attr("href");
+      console.log("done");
     }
     done();
   },
@@ -31,10 +32,16 @@ module.exports = {
       // handle response
       let text = response.text
         .split("Zusammenhang mit Covid-19 gestorben.")
-        .pop();
+        .pop()
+        .match(/.{1,180}/g);
 
-      message.channel.send(text, {
-        tts: true,
+      text.forEach((elem) => {
+        if (elem !== "") {
+          message.channel.send(elem, {
+            author: "",
+            tts: true,
+          });
+        }
       });
     });
   },
