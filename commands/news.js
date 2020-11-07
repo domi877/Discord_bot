@@ -28,7 +28,7 @@ module.exports = {
     const split = message.content.split(/ +/);
     const args = split.slice(1);
 
-    crawler(url).then(function (response) {
+    crawler(url).then((response) => {
       // handle response
       let text = response.text
         .split("Zusammenhang mit Covid-19 gestorben.")
@@ -38,7 +38,6 @@ module.exports = {
       text.forEach((elem) => {
         if (elem !== "") {
           message.channel.send(elem, {
-            author: "",
             tts: true,
           });
         }
