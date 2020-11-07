@@ -23,7 +23,7 @@ c.queue(
 
 module.exports = {
   name: "news",
-  description: "Get the latest information about Flörsbachtal",
+  description: "Get the latest information about Corona in Flörsbachtal",
   execute(message) {
     const split = message.content.split(/ +/);
     const args = split.slice(1);
