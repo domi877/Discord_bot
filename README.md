@@ -7,7 +7,7 @@ Simply check out the repository and run the following command in the root direct
 npm install
 ```
 
-## start
+## Start
 To start the bot just run the following command:
 ```sh
 node index.js
