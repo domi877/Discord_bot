@@ -2,6 +2,8 @@
 This is my first attempt to make a Discord Bot.
 
 ## Install
+To use this repository you should already have created a Discord Bot and got it on your Server. Otherwise following this [Tutorial](https://discordpy.readthedocs.io/en/latest/discord.html).
+
 Simply check out the repository and run the following command in the root directory.
 ```sh
 npm install
